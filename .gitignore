@@ -9,8 +9,9 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
-*.iws
+.idea/
 *.iml
+*.iws
 *.ipr
 
 ### Eclipse ###

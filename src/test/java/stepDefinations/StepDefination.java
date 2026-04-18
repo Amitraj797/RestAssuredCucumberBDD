@@ -6,6 +6,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import java.io.IOException;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
@@ -16,7 +17,7 @@ public class StepDefination {
     RequestSpecification requestSpecification;
     Response response;
     @Given("Add Place payload")
-    public void add_place_payload() {
+    public void add_place_payload() throws IOException {
         // Write code here that turns the phrase above into concrete actions
         AddPlace addPlace = getAddPlace();
         requestSpecification= given().spec(SpecBuild.requestSpecBuilder())
@@ -28,13 +29,13 @@ public class StepDefination {
          response= requestSpecification.when().post("/maps/api/place/add/json");
     }
     @Then("the API call got success with status code {int}")
-    public void the_api_call_got_success_with_status_code(Integer int1) {
+    public void the_api_call_got_success_with_status_code(Integer statusCode) {
         // Write code here that turns the phrase above into concrete actions
-        assertEquals(200, response.getStatusCode());
+        assertEquals(statusCode.intValue(), response.getStatusCode());
     }
     @Then("{string} in the response body is {string}")
-    public void in_the_response_body_is(String keyVlaue, String expectedValue) {
+    public void in_the_response_body_is(String keyValue, String expectedValue) {
         // Write code here that turns the phrase above into concrete actions
-        assertEquals(expectedValue ,response.jsonPath().getString(keyVlaue));
+        assertEquals(expectedValue ,response.jsonPath().getString(keyValue));
     }
 }
